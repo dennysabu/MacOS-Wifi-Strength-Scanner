@@ -29,13 +29,16 @@ int splitInt( int ** recv,  char * line){
      }
 
 
-     //printf("func recv pointer: %p\n", *recv);
+
      *recv = (int * )malloc(sizeof(int));
-     //printf("after malloc: %p\n", *recv);
+     if (*recv == NULL){
+          printf("Unable to allocate memory...terminating\n");
+          return -1;
+     } 
+
      int val = atoi(value);
-     //printf("atoi val: %d\n", val);
+
      **recv = val;
-     //printf("set val: %d\n", **recv);
      return 0;
 }
 
@@ -68,19 +71,28 @@ int runWifiScan(){
 
           switch(line){
                case 0:
-                    //printf("origial-pointer-loc: %p\n", &data->agrCtlRSSI);
-                    splitInt(&data->agrCtlRSSI, readBuffer);
-                    //printf("post-pointer-loc: %p\n", &data->agrCtlRSSI);
-                    //printf("post val: %d\n\n\n\n\n\n", *(data->agrCtlRSSI) );
+                    if (splitInt(&data->agrCtlRSSI, readBuffer) < 0){
+                         printf("Error parsing data...terminating\n");
+                         return -1;
+                    };
                     break;
                case 1: 
-                    splitInt(&data->agrExtRSSI, readBuffer);
+                    if (splitInt(&data->agrExtRSSI, readBuffer) < 0){
+                          printf("Error parsing data...terminating\n");
+                         return -1;
+                    };
                     break;
                case 2:
-                    splitInt(&data->agrCtlNoise, readBuffer);
+                    if(splitInt(&data->agrCtlNoise, readBuffer) < 0) {
+                         printf("Error parsing data...terminating\n");
+                         return -1;
+                    };
                     break;
                case 3: 
-                    splitInt(&data->agrExtNoise, readBuffer);
+                    if(splitInt(&data->agrExtNoise, readBuffer) < 0 ){
+                         printf("Error parsing data...terminating\n");
+                         return -1;
+                    };
                     break;
                case 6:
                case 7:
@@ -89,7 +101,6 @@ int runWifiScan(){
                     
                     break;
           }
-          //int status = split(&data->agrExtRSSI, 1, readBuffer);
 
           if (DEBUG){
                for (int i = 0; i < strlen(readBuffer); i++){
