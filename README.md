@@ -1,4 +1,4 @@
-# MacOs Wifi Scanner
+# MacOS Wifi Scanner
  A much more complicated and less efficient way of finding signal strength on a Mac.
 
 ### Compiling:
