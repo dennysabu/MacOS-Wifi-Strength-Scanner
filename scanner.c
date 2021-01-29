@@ -1,9 +1,6 @@
 #include "scanner.h"
 
 
-#define DEBUG 0
-
-
 int splitInt( int ** recv,  char * line){
      char * key;
      char * value;
@@ -13,7 +10,7 @@ int splitInt( int ** recv,  char * line){
 
      for (int i = 0; i < strlen(line); i++){
           if(!keyStartFound){
-               if(isalpha(line[i])){
+               if(isalnum(line[i])){
                     key = &line[i];
                     keyStartFound = 1;
                }
@@ -36,18 +33,59 @@ int splitInt( int ** recv,  char * line){
           return -1;
      } 
 
-     int val = atoi(value);
-
-     **recv = val;
+     **recv = atoi(value);
      return 0;
 }
 
-int splitDouble(const double * recv, const char * line){
-     printf("got: %s\n", line);
+int splitDouble( double * recv,  char * line){
+     
      return 0;
 }
 
-int splitChar(const double * recv, const char * line){
+int splitChar( char ** recv,  char * line){
+
+     if (DEBUG){
+          printf(" ** Incoming Data **\n");
+          printf(" ** *recv : %p **\n", *recv);
+          printf(" ** line : %s **\n", line);
+     }
+
+     char * key;
+     char * value;
+     int keyStartFound = 0;
+
+
+     for (int i = 0; i < strlen(line); i++){
+          if(!keyStartFound){
+               if(isalnum(line[i])){
+                    key = &line[i];
+                    keyStartFound = 1;
+               }
+          }
+
+          if (keyStartFound){
+               if(line[i] == ':'){
+                    line[i]='\0';
+                    value = &line[i + 2];
+                    int j = 0 ; //Start of value
+                    while (j < strlen(value) && (isalnum(value[j]) || ispunct(value[j]))){
+                         j++;
+                    }
+                    value[j] = '\0'; //replace last item (j should be a non alpha char) with a \0
+                    break;
+               }
+          }
+
+          }
+
+          *recv = (char *)malloc(sizeof(char) * strlen(value));
+           
+          if( *recv == NULL){
+               printf("Unable to allocate memory...terminating\n");
+               return -1;
+          }
+
+          strncpy(*recv, value, strlen(value)); // Copy values over to malloc'd 
 
      return 0;
 }
@@ -94,12 +132,77 @@ int runWifiScan(){
                          return -1;
                     };
                     break;
+               case 4:
+                    if(splitChar(&data->state, readBuffer) < 0 ){
+                         printf("Error parsing data...terminating\n");
+                         return -1;
+                    };
+                    break;       
+               case 5:
+                    if(splitChar(&data->op_mode, readBuffer) < 0 ){
+                         printf("Error parsing data...terminating\n");
+                         return -1;
+                    };
+                    break;                
                case 6:
-               case 7:
-               case 8:
-               case 13:
-                    
+                    if(splitInt(&data->lastTxRate, readBuffer) < 0 ){
+                         printf("Error parsing data...terminating\n");
+                         return -1;
+                    };
                     break;
+               case 7:
+                    if(splitInt(&data->maxRate, readBuffer) < 0 ){
+                         printf("Error parsing data...terminating\n");
+                         return -1;
+                    };
+                    break;
+               case 8:
+                    if(splitInt(&data->lastAssocStatus, readBuffer) < 0 ){
+                         printf("Error parsing data...terminating\n");
+                         return -1;
+                    };
+                    break;             
+               case 9:
+                    if(splitChar(&data->auth_80211, readBuffer) < 0 ){
+                         printf("Error parsing data...terminating\n");
+                         return -1;
+                    };
+                    break;
+                case 10:
+                    if(splitChar(&data->link_Auth, readBuffer) < 0 ){
+                         printf("Error parsing data...terminating\n");
+                         return -1;
+                    };
+                    break;
+                case 11:
+                    if(splitChar(&data->BSSID, readBuffer) < 0 ){
+                         printf("Error parsing data...terminating\n");
+                         return -1;
+                    };
+                    break;    
+                case 12:
+                    if(splitChar(&data->SSID, readBuffer) < 0 ){
+                         printf("Error parsing data...terminating\n");
+                         return -1;
+                    };
+                    break;    
+               case 13:
+                    if(splitInt(&data->MCS, readBuffer) < 0) {
+                         printf("Error parsing data...terminating\n");
+                         return -1;
+                    };
+                    break;
+                case 14:
+                    if(splitChar(&data->channel, readBuffer) < 0 ){
+                         printf("Error parsing data...terminating\n");
+                         return -1;
+                    };                               
+                    break;
+               default:
+                    printf("Unexpected data...terminating\n");
+                    return 0;
+                    break;
+
           }
 
           if (DEBUG){

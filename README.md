@@ -1,6 +1,11 @@
 # MacOS Wifi Scanner
  A much more complicated and less efficient way of finding signal strength on a Mac.
 
+### Configure:
+---
+If you grab the code as it sits in the repo, the output will be more verbose than what is shown in this document. To make it match, edit the scanner.h file and set PRINT_DEBUG to 0 and then compile.
+
+
 ### Compiling:
 ----
 You can use the included makefile, which has definitions for *all* and *clean*.
