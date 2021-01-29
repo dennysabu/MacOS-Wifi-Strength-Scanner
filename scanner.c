@@ -232,6 +232,9 @@ int runWifiScan(){
 
 int main(int argc, char ** argv){
 
+     //TODO: implement getopt
+
+
      /*
           0: No extra output
           1: Standard output
