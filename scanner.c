@@ -232,8 +232,6 @@ int runWifiScan(){
 
 int main(int argc, char ** argv){
 
-     printf("Command to run %s\n", WIFI_COMMAND);
-
      while(1){
           runWifiScan();
           usleep(2000000);

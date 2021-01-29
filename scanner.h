@@ -9,7 +9,7 @@
      #define WIFI_COMMAND "/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -I"
      #define BUF_SIZE 512
      #define DEBUG 0
-     #define PRINT_DEBUG 1
+     #define PRINT_DEBUG 0
 
      typedef struct _scanData {
           int * agrCtlRSSI;     //0             

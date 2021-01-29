@@ -1,5 +1,7 @@
 # MacOS Wifi Scanner
  A much more complicated and less efficient way of finding signal strength on a Mac.
+ 
+ This program will query the Mac airport utility repeatly report the signal strenght by default. This should work on most modern Macs with WiFi. 
 
 ### Configure:
 ---
@@ -27,13 +29,7 @@ You can use the included makefile, which has definitions for *all* and *clean*.
      $ ./scanner
  ```
 
- It will report to you the command it will run: 
-
- ```bash
-     Command to run /System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -I
- ```
-
-and then beginning querying every 2 seconds for the signal data:
+ It will begin querying every 2 seconds for the signal data:
 
 ```bash
 
