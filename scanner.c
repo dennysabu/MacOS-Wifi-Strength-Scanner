@@ -232,6 +232,20 @@ int runWifiScan(){
 
 int main(int argc, char ** argv){
 
+     /*
+          0: No extra output
+          1: Standard output
+          2: Print all the output 
+     */
+     int verbosity = 1;
+
+
+     /*
+          0: print only once
+          1: print continuously
+     */
+     int repetition = 1;
+
      while(1){
           runWifiScan();
           usleep(2000000);

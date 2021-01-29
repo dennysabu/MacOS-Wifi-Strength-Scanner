@@ -3,6 +3,28 @@
  
  This program will query the Mac airport utility repeatly report the signal strenght by default. This should work on most modern Macs with WiFi. 
 
+ ### Options
+ ----
+
+#### Verbosity 
+***-v*** - no extra output
+
+Rather than print the entire "Strength: x" value, the program will only print the value
+
+***-vv*** - standard output
+
+Default print, "Strength: x"
+
+***-v*** - All extra output
+
+Will print entire struct 
+
+#### Repetition
+
+***-o*** Output only one line
+
+***-c*** Default; prints continuously
+
 ### Configure:
 ---
 If you grab the code as it sits in the repo, the output will be more verbose than what is shown in this document. To make it match, edit the scanner.h file and set PRINT_DEBUG to 0 and then compile.
