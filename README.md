@@ -1,7 +1,7 @@
 # MacOS Wifi Scanner
  A much more complicated and less efficient way of finding signal strength on a Mac.
  
- This program will query the Mac airport utility repeatly report the signal strenght by default. This should work on most modern Macs with WiFi. 
+ This program will query the Mac airport utility repeatedly report the signal strength  by default. This should work on most modern Macs with WiFi. 
 
  ### Options
  ----
