@@ -37,11 +37,6 @@ int splitInt( int ** recv,  char * line){
      return 0;
 }
 
-int splitDouble( double * recv,  char * line){
-     
-     return 0;
-}
-
 int splitChar( char ** recv,  char * line){
 
      if (DEBUG){
@@ -232,9 +227,6 @@ int runWifiScan( int verbosity ){
 
 int main(int argc, char ** argv){
 
-     
-
-
      /*
           0: No extra output
           1: Standard output       //Default
@@ -248,8 +240,6 @@ int main(int argc, char ** argv){
           1: print continuously    //Default
      */
      int repetition = 1;
-
-     //TODO: implement getopt
 
      opterr = 0;
 
