@@ -7,27 +7,61 @@
  ----
 
 #### Verbosity 
-***-v*** - no extra output
+***-v [0/1/2]*** 
 
-Rather than print the entire "Strength: x" value, the program will only print the value
+-v0 minimal output: '-59' [** Default **]
 
-***-vv*** - standard output
+-v1 standard output: 'Stength: -59'
 
-Default print, "Strength: x"
+-v2 maximum output: 
+```bash
+agrCtlRSSI: -58
+agrExtRSSI: 0
+agrCtlNoise: -91
+agrExtNoise: 0
+state: running
+op mode: station
+lastTxRate: 585
+maxRate: 1300
+lastAssocStatus: 0
+802.11 auth: open
+link auth-psk: wpa2-psk
+BSSID: de:ad:be:ef:de:ad
+SSID: your_wifi_here
+MCS: 5
+channel: 161,80
+```
 
-***-v*** - All extra output
-
-Will print entire struct 
 
 #### Repetition
 
-***-o*** Output only one line
+***-o [0/1]*** 
 
-***-c*** Default; prints continuously
+-o0 prints only once
 
-### Configure:
----
-If you grab the code as it sits in the repo, the output will be more verbose than what is shown in this document. To make it match, edit the scanner.h file and set PRINT_DEBUG to 0 and then compile.
+-o1 prints continuously [** Default **]
+
+ex:
+
+```bash
+./scanner
+```
+Will print the standard output, continuously. 
+
+```bash
+./scanner -v1
+```
+Will print the standard output, continuously. 
+
+```bash
+./scanner -o1
+```
+Will print the standard output, continuously. 
+
+```bash
+./scanner -v2 -o0 
+```
+Will print entire output, once.
 
 
 ### Compiling:
@@ -46,7 +80,7 @@ You can use the included makefile, which has definitions for *all* and *clean*.
 
 ### Running:
 ----
- This will create an exectuable called scanner, which you can invoke using:
+ This will create an executable called scanner, which you can invoke using:
  ```bash
      $ ./scanner
  ```

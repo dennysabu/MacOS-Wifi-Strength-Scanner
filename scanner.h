@@ -52,15 +52,30 @@
           return 0;
      }
 
-     int printConnStrength(ConnData * data){
+     int printConnStrength(ConnData * data, int verbosity){
 
-          printf("Strength: %d\n", *data->agrCtlRSSI);
-          if ( PRINT_DEBUG ){
-               printf(" auth : %s\n",data->auth_80211);
-               printf(" link : %s\n",data->link_Auth);
-               printf(" bssid : %s\n",data->BSSID);
-               printf(" ssid : %s\n",data->SSID);
-               printf(" channel: %s\n",data->channel);
+          if (verbosity == 0 ){
+               printf("%d\n", *data->agrCtlRSSI);
+          }
+          else if (verbosity == 1){
+               printf("Strength: %d\n", *data->agrCtlRSSI);
+          }
+          else if ( verbosity == 2 ){
+               printf("agrCtlRSSI: %d\n", *data->agrCtlRSSI);
+               printf("agrExtRSSI: %d\n", *data->agrExtRSSI);
+               printf("agrCtlNoise: %d\n", *data->agrCtlNoise);
+               printf("agrExtNoise: %d\n", *data->agrExtNoise);
+               printf("state: %s\n", data->state);
+               printf("op mode: %s\n", data->op_mode); 
+               printf("lastTxRate: %d\n", *data->lastTxRate);
+               printf("maxRate: %d\n", *data->maxRate);
+               printf("lastAssocStatus: %d\n", *data->lastAssocStatus);
+               printf("802.11 auth: %s\n", data->auth_80211);
+               printf("link auth-psk: %s\n", data->link_Auth);
+               printf("BSSID: %s\n", data->BSSID);
+               printf("SSID: %s\n", data->SSID);
+               printf("MCS: %d\n", *data->MCS);
+               printf("channel: %s\n", data->channel);
           }
 
 

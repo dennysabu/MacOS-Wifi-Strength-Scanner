@@ -90,7 +90,7 @@ int splitChar( char ** recv,  char * line){
      return 0;
 }
 
-int runWifiScan(){
+int runWifiScan( int verbosity ){
      ConnData * data = (ConnData*)malloc(sizeof(ConnData) * 1);
      bzero(data, sizeof(ConnData));
 
@@ -224,7 +224,7 @@ int runWifiScan(){
           
           
      }
-     printConnStrength(data);
+     printConnStrength(data, verbosity);
      freeConnData(data);
      return 0;
 }
@@ -232,12 +232,12 @@ int runWifiScan(){
 
 int main(int argc, char ** argv){
 
-     //TODO: implement getopt
+     
 
 
      /*
           0: No extra output
-          1: Standard output
+          1: Standard output       //Default
           2: Print all the output 
      */
      int verbosity = 1;
@@ -245,13 +245,57 @@ int main(int argc, char ** argv){
 
      /*
           0: print only once
-          1: print continuously
+          1: print continuously    //Default
      */
      int repetition = 1;
 
-     while(1){
-          runWifiScan();
-          usleep(2000000);
+     //TODO: implement getopt
+
+     opterr = 0;
+
+     //Verbosity v 
+     //output o
+     int c;
+     while ((c = getopt (argc, argv, "v::o::")) != -1){
+          
+          int verbSwitch = -99;
+          int outputSwitch = -99;
+          switch(c){
+               case 'v':
+
+                    verbSwitch = atoi(optarg);
+                    if (verbSwitch == 0 || verbSwitch == 1 || verbSwitch == 2){
+                         verbosity = verbSwitch;
+                    }
+                    else{
+                         printf("\tInvalid value for option -%c: '%s'\n", c, optarg);
+                         return -1;
+                    }
+                    break;
+               case 'o':
+                    outputSwitch = atoi(optarg);
+                    if (outputSwitch == 0 || outputSwitch == 1){
+                         repetition = outputSwitch;
+                    }
+                    else{
+                         printf("\tInvalid value for option -%c: '%s'\n", c, optarg);
+                         return -1;
+                    }
+                    break;
+               default:
+                    //printf("Not matching args");
+                    break;
+
+          }
+     }
+    
+     if (repetition)
+          while(1){
+               runWifiScan(verbosity);
+               usleep(2000000);
+          }
+     else{
+          runWifiScan(verbosity);
      }
      
 
