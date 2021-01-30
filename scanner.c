@@ -282,6 +282,22 @@ int main(int argc, char ** argv){
                          return -1;
                     }
                     break;
+               
+               case '?':
+                    printf("Unknown option '-%c'\n", optopt);
+               
+               case 'h':
+                    printf("\nUsage: scanner [OPTIONS]\n");
+                    printf("\n -v Verbosity\n");
+                    printf("\t 0 - Minimal output\n");
+                    printf("\t 1 - Standard output [Default]\n");
+                    printf("\t 2 - Maximum output\n");
+
+                    printf("\n -o Repetition\n"); 
+                    printf("\t 0 - Do not repeat\n");
+                    printf("\t 1 - Repeat [Default]\n");
+                    return 0;
+               
                default:
                     //printf("Not matching args");
                     break;
