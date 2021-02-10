@@ -40,9 +40,9 @@ int splitInt( int ** recv,  char * line){
 int splitChar( char ** recv,  char * line){
 
      if (DEBUG){
-          printf(" ** Incoming Data **\n");
-          printf(" ** *recv : %p **\n", *recv);
-          printf(" ** line : %s **\n", line);
+          //printf(" ** Incoming Data **\n");
+          //printf(" ** *recv : %p **\n", *recv);
+          //printf(" ** line : %s **\n", line);
      }
 
      char * key;
@@ -101,13 +101,13 @@ int runWifiScan( int verbosity ){
      }
      while (fgets(readBuffer, BUF_SIZE, cmdResult) != NULL){
           //printf("%s", readBuffer);
-
           switch(line){
                case 0:
                     if (splitInt(&data->agrCtlRSSI, readBuffer) < 0){
                          printf("Error parsing data...terminating\n");
                          return -1;
-                    };
+                    }
+
                     break;
                case 1: 
                     if (splitInt(&data->agrExtRSSI, readBuffer) < 0){
@@ -221,6 +221,7 @@ int runWifiScan( int verbosity ){
      }
      printConnStrength(data, verbosity);
      freeConnData(data);
+     pclose(cmdResult);
      return 0;
 }
 

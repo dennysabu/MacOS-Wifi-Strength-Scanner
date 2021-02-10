@@ -48,6 +48,7 @@
           free(data->SSID);
           free(data->MCS);
           free(data->channel);
+          free(data);
 
           return 0;
      }
